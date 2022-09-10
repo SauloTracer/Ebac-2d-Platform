@@ -67,4 +67,14 @@ public class MenuState : StateBase
         base.Enter(args);
         GameManager.instance?.Menu();
     }
+
+    public override void Update()
+    {
+        base.Update();
+    }
+
+    public override void Exit()
+    {
+        base.Exit();
+    }
 }
