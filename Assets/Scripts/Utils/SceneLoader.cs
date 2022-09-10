@@ -7,11 +7,9 @@ public class SceneLoader : MonoBehaviour
 {
     public enum Scenes
     {
-        menu,
-        level01
+        menu = 0,
+        level01 = 1,
     }
-
-    public Dictionary<Scenes, int> scenesDictionary;
 
     public void Start() {
 
@@ -23,5 +21,9 @@ public class SceneLoader : MonoBehaviour
 
     public void Load(string sceneName) {
         SceneManager.LoadScene(sceneName);
+    }
+
+    public void Load(Scenes scene) {
+        SceneManager.LoadScene((int)scene);
     }
 }

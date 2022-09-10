@@ -6,6 +6,7 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance;
     public StateMachine stateMachine;
+    public SceneLoader Loader;
 
     // public GameManager() {
     //     if (!instance) instance = this;
@@ -39,6 +40,7 @@ public class GameManager : MonoBehaviour
 
     public void Play() {
         // Start the game (level 01)
+        Loader.Load(SceneLoader.Scenes.level01);
     }
 
     public void Stop() {
@@ -47,6 +49,7 @@ public class GameManager : MonoBehaviour
 
     public void Menu() {
         // Load menu scene
+        Loader.Load(SceneLoader.Scenes.menu);
     }
 
 }

@@ -21,7 +21,6 @@ public class StateMachine : MonoBehaviour
 
     private void Awake() {
         instance = this;
-        DontDestroyOnLoad(gameObject);
         
         dictionaryState = new Dictionary<States, StateBase>();
         dictionaryState.Add(States.MENU, new MenuState());
