@@ -26,7 +26,7 @@ public class StateMachine : MonoBehaviour
         dictionaryState.Add(States.MENU, new MenuState());
         dictionaryState.Add(States.PLAYING, new PlayingState());
 
-        SwitchState(States.MENU);
+        // SwitchState(States.MENU);
     }
 
     private void SwitchState(States state, string[] args = null) {

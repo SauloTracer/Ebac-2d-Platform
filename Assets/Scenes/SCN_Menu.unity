@@ -1084,23 +1084,27 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 970031088221319194, guid: 736cdf4bf0210df4fb2a90296b9c2ff1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 970031088221319194, guid: 736cdf4bf0210df4fb2a90296b9c2ff1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 1868257639}
+      objectReference: {fileID: 1749794953}
     - target: {fileID: 970031088221319194, guid: 736cdf4bf0210df4fb2a90296b9c2ff1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 970031088221319194, guid: 736cdf4bf0210df4fb2a90296b9c2ff1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Play
+      value: Load
       objectReference: {fileID: 0}
     - target: {fileID: 970031088221319194, guid: 736cdf4bf0210df4fb2a90296b9c2ff1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: StateMachine, Assembly-CSharp
+      value: SceneLoader, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 970031088221319194, guid: 736cdf4bf0210df4fb2a90296b9c2ff1, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 970031088221319194, guid: 736cdf4bf0210df4fb2a90296b9c2ff1, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
@@ -1518,7 +1522,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1009968599
 GameObject:
@@ -3470,6 +3474,50 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 970031088221319195, guid: 736cdf4bf0210df4fb2a90296b9c2ff1, type: 3}
   m_PrefabInstance: {fileID: 1713845229}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1749794952
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1749794954}
+  - component: {fileID: 1749794953}
+  m_Layer: 0
+  m_Name: Loader
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1749794953
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1749794952}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 244963c3eee76094bb10e6bcefdffa2d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1749794954
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1749794952}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 1027.8606, y: 505.032, z: 8.746704}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1763741107
 GameObject:
   m_ObjectHideFlags: 0
@@ -3911,7 +3959,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1868257639
 MonoBehaviour:
@@ -4050,7 +4098,7 @@ GameObject:
   - component: {fileID: 1893037457}
   - component: {fileID: 1893037456}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: UI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4132,7 +4180,7 @@ RectTransform:
   - {fileID: 210454612}
   - {fileID: 817674042}
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
