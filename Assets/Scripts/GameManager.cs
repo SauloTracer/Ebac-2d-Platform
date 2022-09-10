@@ -1,24 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using utils;
 
-public class GameManager : MonoBehaviour
+public class GameManager : Singleton<GameManager>
 {
-    public static GameManager instance;
     public StateMachine stateMachine;
     public SceneLoader Loader;
 
-    // public GameManager() {
-    //     if (!instance) instance = this;
-    //     return instance;
-    // }
-
     public void Awake() {
-        if (!instance) {
-            instance = this;
-        } else {
-            Destroy(gameObject);
-        }
+        base.Awake();
         DontDestroyOnLoad(gameObject);
     }
 
