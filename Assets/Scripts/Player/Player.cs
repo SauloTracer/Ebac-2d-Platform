@@ -18,12 +18,23 @@ public class Player : MonoBehaviour
 
     public Rigidbody2D rigidBody;
 
+    private Vector3 _startPosition;
+    private Color _startColor;
+
+    void Awake()
+    {
+        _startPosition = transform.position;
+        _startColor = GetComponent<SpriteRenderer>().color;
+    }
+
     // Update is called once per frame
     void Update()
     {
         HandleMovement();
         HandleJump();
         DecreaseSpeed(); // Apply drag
+        HandleFall();
+
         // var startPosition = transform.position;
         // startPosition.y -= GetComponent<BoxCollider2D>().bounds.extents.y;
         // Debug.DrawRay(startPosition, Vector2.down * 0.1f, Color.red);
@@ -65,5 +76,17 @@ public class Player : MonoBehaviour
 
     private bool IsRunning() {
         return Input.GetKey(running);
+    }
+
+    private bool IsFalling() {
+        return transform.position.y < 4.5f;
+    }
+
+    private void HandleFall() {
+        if (IsFalling())
+        {
+            transform.position = _startPosition;
+            GetComponent<SpriteRenderer>().color = _startColor;
+        }
     }
 }
