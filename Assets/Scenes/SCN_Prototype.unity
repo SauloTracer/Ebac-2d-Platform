@@ -1638,6 +1638,6 @@ MonoBehaviour:
   jumpScale: {x: 0.7, y: 1.2, z: 1}
   jumpAnimationDuration: 0.2
   landScale: {x: 1.4, y: 0.6, z: 1}
-  landAnimationDuration: 0.2
+  landAnimationDuration: 0.1
   ease: 27
   rigidBody: {fileID: 1996690789}
