@@ -397,7 +397,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -9095717837082945937, guid: 207ee8102dd4143d288186ef0be518ee, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.8301887, g: 0.24991101, b: 0.19188325, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -434,7 +434,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b10992aaabca0d409030f342b55dd12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 1, g: 0, b: 0, a: 1}
+  color: {r: 0.83137256, g: 0.2509804, b: 0.19215687, a: 1}
 --- !u!61 &385048091
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -472,7 +472,7 @@ GameObject:
   - component: {fileID: 413936384}
   - component: {fileID: 413936383}
   - component: {fileID: 413936382}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Platform 2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -671,7 +671,7 @@ GameObject:
   - component: {fileID: 454846526}
   - component: {fileID: 454846525}
   - component: {fileID: 454846524}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Platform 3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -890,7 +890,7 @@ GameObject:
   - component: {fileID: 872647612}
   - component: {fileID: 872647611}
   - component: {fileID: 872647613}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Floor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1069,7 +1069,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8b10992aaabca0d409030f342b55dd12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  color: {r: 0, g: 0.07410216, b: 1, a: 1}
+  color: {r: 0, g: 0.70980394, b: 1, a: 1}
 --- !u!61 &1744725448
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -1159,7 +1159,7 @@ GameObject:
   - component: {fileID: 1768534228}
   - component: {fileID: 1768534227}
   - component: {fileID: 1768534226}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Platform 1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1270,7 +1270,7 @@ GameObject:
   - component: {fileID: 1784032918}
   - component: {fileID: 1784032917}
   - component: {fileID: 1784032916}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: RightGoal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1381,7 +1381,7 @@ GameObject:
   - component: {fileID: 1934983019}
   - component: {fileID: 1934983018}
   - component: {fileID: 1934983017}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: LeftGoal
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1496,7 +1496,7 @@ GameObject:
   - component: {fileID: 1996690793}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1521,7 +1521,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!212 &1996690790
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -1635,4 +1635,9 @@ MonoBehaviour:
   runningSpeed: 12
   jumpForce: 9
   friction: {x: 0.1, y: 0}
+  jumpScale: {x: 0.7, y: 1.2, z: 1}
+  jumpAnimationDuration: 0.2
+  landScale: {x: 1.4, y: 0.6, z: 1}
+  landAnimationDuration: 0.2
+  ease: 27
   rigidBody: {fileID: 1996690789}
