@@ -8,9 +8,11 @@ public class Player : MonoBehaviour
     public KeyCode left = KeyCode.LeftArrow;
     public KeyCode right = KeyCode.LeftArrow;
     public KeyCode jump = KeyCode.Space;
+    public KeyCode running = KeyCode.LeftControl;
 
     [Header("Movement Configruations")]
     public float speed = 3f;
+    public float runningSpeed = 5f;
     public float jumpForce = 8f;
     public Vector2 friction = new Vector2(0.1f, 0);
 
@@ -21,21 +23,22 @@ public class Player : MonoBehaviour
     {
         HandleMovement();
         HandleJump();
-        DecreaseSpeed();
-        var startPosition = transform.position;
-        startPosition.y -= GetComponent<BoxCollider2D>().bounds.extents.y;
-        Debug.DrawRay(startPosition, Vector2.down * 0.1f, Color.red);
+        DecreaseSpeed(); // Apply drag
+        // var startPosition = transform.position;
+        // startPosition.y -= GetComponent<BoxCollider2D>().bounds.extents.y;
+        // Debug.DrawRay(startPosition, Vector2.down * 0.1f, Color.red);
     }
 
     private void HandleMovement()
     {
+        float currentSpeed = IsRunning() ? runningSpeed : speed;
         if (Input.GetKey(left))
         {
-            rigidBody.velocity = new Vector2(-speed, rigidBody.velocity.y);
+            rigidBody.velocity = new Vector2(-currentSpeed, rigidBody.velocity.y);
         }
         else if (Input.GetKey(right))
         {
-            rigidBody.velocity = new Vector2(speed, rigidBody.velocity.y);
+            rigidBody.velocity = new Vector2(currentSpeed, rigidBody.velocity.y);
         }
     }
 
@@ -58,5 +61,9 @@ public class Player : MonoBehaviour
         var startPosition = transform.position;
         startPosition.y -= GetComponent<BoxCollider2D>().bounds.extents.y;
         return Physics2D.Raycast(startPosition, Vector2.down, 0.1f);
+    }
+
+    private bool IsRunning() {
+        return Input.GetKey(running);
     }
 }

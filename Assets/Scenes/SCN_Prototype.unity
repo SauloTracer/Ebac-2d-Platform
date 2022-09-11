@@ -894,7 +894,9 @@ MonoBehaviour:
   left: 276
   right: 275
   jump: 32
+  running: 306
   speed: 5
-  jumpForce: 8
+  runningSpeed: 12
+  jumpForce: 9
   friction: {x: 0.1, y: 0}
   rigidBody: {fileID: 1996690789}
