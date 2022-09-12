@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
-using System;
-using utils;
+using System.Collections;
 
 public class Player : MonoBehaviour
 {
@@ -26,17 +23,15 @@ public class Player : MonoBehaviour
     public float landAnimationDuration = .2f;
     public Ease ease = Ease.OutBack;
 
-
     [Header("References")]
     public Rigidbody2D rigidBody;
 
     private Vector3 _startPosition;
     private Vector3 _startScale;
     private Color _startColor;
+    private Health _health;
 
     private bool _wasInTheAir;
-
-
 
     void Awake()
     {
@@ -44,6 +39,8 @@ public class Player : MonoBehaviour
         _startColor = GetComponent<SpriteRenderer>().color;
         _startScale = transform.localScale;
         _wasInTheAir = true;
+        _health = GetComponent<Health>();
+        _health.OnDeath += AnimateDeath;
     }
 
     // Update is called once per frame
@@ -104,9 +101,14 @@ public class Player : MonoBehaviour
     private void HandleFall() {
         if (IsFalling())
         {
-            transform.position = _startPosition;
-            GetComponent<SpriteRenderer>().color = _startColor;
+            Reset();
         }
+    }
+
+    public void Reset() {
+        transform.position = _startPosition;
+        transform.localScale = _startScale;
+        GetComponent<SpriteRenderer>().color = _startColor;
     }
     
     private bool IsGrounded() {
@@ -141,4 +143,15 @@ public class Player : MonoBehaviour
             });
     }
 
+    private void AnimateDeath() {
+        Color currentColor = GetComponent<SpriteRenderer>().color;
+        GetComponent<SpriteRenderer>().color = Color.Lerp(currentColor, Color.black, _health.delayDeath);
+        rigidBody.transform.DOScale(Vector3.zero, _health.delayDeath).SetEase(ease);            
+        StartCoroutine("DelayReset", _health.delayDeath);
+    }
+
+    private IEnumerator DelayReset() {
+        yield return new WaitForSeconds(_health.delayDeath);
+        Reset();
+    }
 }
