@@ -23,20 +23,38 @@ public class Player : MonoBehaviour
     public float landAnimationDuration = .2f;
     public Ease ease = Ease.OutBack;
 
+    public float deathAnimationDuration = .5f;
+
     [Header("References")]
     public Rigidbody2D rigidBody;
+    public Animator animator;
+    public float GroundRayOffset = -0.5f;
+
+    public string moving = "Moving";
+    public string falling = "Falling";
+    public string jumping = "Jumping";
+    public string grounded = "Grounded";
+    public string landing = "Landing";
+    public string dying = "Death";
 
     private Vector3 _startPosition;
     private Vector3 _startScale;
-    private Color _startColor;
     private Health _health;
 
     private bool _wasInTheAir;
 
+    private void OnValidate()
+    {
+        if (rigidBody == null)
+            rigidBody = GetComponent<Rigidbody2D>();
+
+        if (animator == null)
+            animator = GetComponentInChildren<Animator>();
+    }
+
     void Awake()
     {
         _startPosition = transform.position;
-        _startColor = GetComponent<SpriteRenderer>().color;
         _startScale = transform.localScale;
         _wasInTheAir = true;
         _health = GetComponent<Health>();
@@ -48,13 +66,14 @@ public class Player : MonoBehaviour
     {
         HandleMovement();
         HandleJump();
+        HandleFall();
         HandleLanding();
         HandleDrag();
-        HandleFall();
+        HandleFallOut();
         _wasInTheAir = !IsGrounded();
 
         var startPosition = transform.position;
-        startPosition.y -= GetComponent<BoxCollider2D>().bounds.extents.y;
+        startPosition.y -= GetComponent<BoxCollider2D>().bounds.extents.y + GroundRayOffset;
         Debug.DrawRay(startPosition, Vector2.down * 0.1f, Color.red);
     }
 
@@ -64,30 +83,41 @@ public class Player : MonoBehaviour
         if (Input.GetKey(left))
         {
             rigidBody.velocity = new Vector2(-currentSpeed, rigidBody.velocity.y);
+            rigidBody.transform.DOScaleX(-1, 0.1f);
+            animator.SetBool(moving, true);
         }
         else if (Input.GetKey(right))
         {
             rigidBody.velocity = new Vector2(currentSpeed, rigidBody.velocity.y);
+            rigidBody.transform.DOScaleX(1, 0.1f);
+            animator.SetBool(moving, true);
+        } else {
+            animator.SetBool(moving, false);
         }
     }
 
     private void HandleJump() {
-        if (Input.GetKeyDown(jump) && IsGrounded())
+        bool isGrounded = IsGrounded();
+        if (_wasInTheAir && isGrounded) animator.SetBool(jumping, false);
+        if (Input.GetKeyDown(jump) && isGrounded)
         {
-            DOTween.Kill(rigidBody.transform);
             rigidBody.velocity = new Vector2(rigidBody.velocity.x, jumpForce);
-            AnimateJump();
+            animator.SetBool(jumping, true);
+            animator.SetBool(grounded, false);
         }
+    }
+
+    private void HandleFall() {
+        bool isFalling = IsFalling();
+        if (isFalling) animator.SetBool(jumping, false);
+        animator.SetBool(falling, isFalling);
     }
 
     private void HandleLanding()
     {
-        if (!_wasInTheAir) return;
-        if(IsGrounded())
-        {
-            DOTween.Kill(rigidBody.transform);
-            AnimateLanding();
-        }
+        bool isGrounded = IsGrounded();
+        animator.SetBool(grounded, isGrounded);
+        if (_wasInTheAir && isGrounded) animator.SetTrigger(landing);
     }
 
     private void HandleDrag() {
@@ -98,8 +128,8 @@ public class Player : MonoBehaviour
             : new Vector2(rigidBody.velocity.x + friction.x * signal, rigidBody.velocity.y);
     }
 
-    private void HandleFall() {
-        if (IsFalling())
+    private void HandleFallOut() {
+        if (IsFallingOut())
         {
             Reset();
         }
@@ -108,12 +138,11 @@ public class Player : MonoBehaviour
     public void Reset() {
         transform.position = _startPosition;
         transform.localScale = _startScale;
-        GetComponent<SpriteRenderer>().color = _startColor;
     }
     
     private bool IsGrounded() {
         var startPosition = transform.position;
-        startPosition.y -= GetComponent<BoxCollider2D>().bounds.extents.y;
+        startPosition.y -= GetComponent<BoxCollider2D>().bounds.extents.y - GroundRayOffset;
         return Physics2D.Raycast(startPosition, Vector2.down, 0.1f, LayerMask.GetMask("Ground"));
     }
 
@@ -122,36 +151,20 @@ public class Player : MonoBehaviour
     }
 
     private bool IsFalling() {
+        return rigidBody.velocity.y < 0 && !IsGrounded();
+    }
+
+    private bool IsFallingOut() {
         return transform.position.y < 4.5f;
     }
 
-    private void AnimateJump() {
-        rigidBody.transform.DOScale(jumpScale, jumpAnimationDuration)
-            .SetLoops(2, LoopType.Yoyo)
-            .SetEase(ease)
-            .OnComplete(() => {
-                rigidBody.transform.localScale = _startScale;
-            });
-    }
-
-    private void AnimateLanding() {
-        rigidBody.transform.DOScale(landScale, landAnimationDuration)
-            .SetLoops(2, LoopType.Yoyo)
-            .SetEase(ease)
-            .OnComplete(() => {
-                rigidBody.transform.localScale = _startScale;
-            });
-    }
-
     private void AnimateDeath() {
-        Color currentColor = GetComponent<SpriteRenderer>().color;
-        GetComponent<SpriteRenderer>().color = Color.Lerp(currentColor, Color.black, _health.delayDeath);
-        rigidBody.transform.DOScale(Vector3.zero, _health.delayDeath).SetEase(ease);            
-        StartCoroutine("DelayReset", _health.delayDeath);
+        animator.SetTrigger(dying);
+        StartCoroutine(nameof(DelayReset));
     }
 
     private IEnumerator DelayReset() {
-        yield return new WaitForSeconds(_health.delayDeath);
+        yield return new WaitForSeconds(deathAnimationDuration);
         Reset();
     }
 }
