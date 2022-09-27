@@ -15,7 +15,7 @@ public class CollectableBase : MonoBehaviour
 
     protected virtual void Collect()
     {
-        Debug.Log("Collect");
+        // Debug.Log("Collect");
         OnCollect();
         gameObject.SetActive(false);
     }

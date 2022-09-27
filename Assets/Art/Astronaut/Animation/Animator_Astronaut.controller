@@ -61,7 +61,7 @@ AnimatorState:
   m_PrefabAsset: {fileID: 0}
   m_Name: ANIM_Astronaut_Death
   m_Speed: 1
-  m_CycleOffset: 0
+  m_CycleOffset: 1
   m_Transitions:
   - {fileID: 4772147827807149546}
   m_StateMachineBehaviours: []
@@ -201,7 +201,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.072695136
+  m_TransitionDuration: 0.02151239
   m_TransitionOffset: 0
   m_ExitTime: 0.6875
   m_HasExitTime: 1
@@ -405,9 +405,9 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.475878
+  m_TransitionDuration: 0
   m_TransitionOffset: 0
-  m_ExitTime: 0.9975695
+  m_ExitTime: 0.9975696
   m_HasExitTime: 1
   m_HasFixedDuration: 1
   m_InterruptionSource: 0
@@ -509,7 +509,7 @@ AnimatorStateTransition:
   m_Mute: 0
   m_IsExit: 0
   serializedVersion: 3
-  m_TransitionDuration: 0.084042534
+  m_TransitionDuration: 0.0275909
   m_TransitionOffset: 0
   m_ExitTime: 0.5
   m_HasExitTime: 1

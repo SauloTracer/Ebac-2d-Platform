@@ -29,6 +29,7 @@ public class Player : MonoBehaviour
     public Rigidbody2D rigidBody;
     public Animator animator;
     public float GroundRayOffset = -0.5f;
+    public float MinYPosition = -17f;
 
     public string moving = "Moving";
     public string falling = "Falling";
@@ -142,7 +143,7 @@ public class Player : MonoBehaviour
     
     private bool IsGrounded() {
         var startPosition = transform.position;
-        startPosition.y -= GetComponent<BoxCollider2D>().bounds.extents.y - GroundRayOffset;
+        startPosition.y -= GetComponent<BoxCollider2D>().bounds.extents.y + GroundRayOffset;
         return Physics2D.Raycast(startPosition, Vector2.down, 0.1f, LayerMask.GetMask("Ground"));
     }
 
@@ -155,7 +156,7 @@ public class Player : MonoBehaviour
     }
 
     private bool IsFallingOut() {
-        return transform.position.y < 4.5f;
+        return transform.position.y < MinYPosition;
     }
 
     private void AnimateDeath() {
